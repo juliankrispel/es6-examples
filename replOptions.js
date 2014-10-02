@@ -33,7 +33,6 @@ export function setOptionsFromSource(source, onOptionChanged) {
   // Start with default options.
   traceurOptions = new Options();
   traceurOptions.asyncFunctions = true;
-  window.opt = traceurOptions;
 
   // Mutate these options with source-defined // Options values.
   var optionLines = source.match(reOptions);
