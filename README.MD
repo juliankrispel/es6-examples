@@ -24,3 +24,10 @@ and browse the site at the specified port.
 - ES Harmony Specification Drafts           - wiki.ecmascript.org/doku.php?id=harmony:specification_drafts
 - ES6 Draft on people mozilla               - people.mozilla.org/~jorendorff/es6-draft.html
 - David Walsh - 4 Articles on Generators    - davidwalsh.name/es6-generators
+
+
+#Features I don't have examples for yet
+- Map
+- Set
+- Computed Properties
+- 

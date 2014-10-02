@@ -369,49 +369,6 @@ font-style: normal;
 System.import('./repl-module').catch(function(ex) {
   console.error('Internal Error ', ex.stack || ex);
 });
-var $log = document.querySelector('.log');
-window.setHTML = function(html){
-  $log.innerHTML = html; 
-}
-window.append = function($el){
-  console.log($el);
-  if(typeof $el === 'string'){
-    $log.innerHTML+= $el;
-  }else{
-    $log.appendChild($el);
-  }
-};
-
-var eventCallbacks = {
-  keyup: function(){}
-}
-
-var onKeyUp = function(keys, callback){
-  eventCallbacks.keyup = function(e){
-    console.log('keys', keys);
-      keys = keys;
-      var key = String.fromCharCode(e.keyCode).toLowerCase();
-      if(keys === undefined || keys === null){
-        callback();
-        return ;
-      }
-      if(!_.isArray(keys)){
-        keys = [keys];
-      }
-      for(var i = 0; i < keys.length; i++){
-        if(keys[i] === key){
-          callback(key);
-          break;
-        }
-      }
-  };
-};
-
-window.log = function(){
-  var args = _.map(Array.prototype.slice.call(arguments, 0),
-      function(arg){ return JSON.stringify(arg); });
-  $log.innerHTML+= '> ' + args.join(', ') + '<br/>';
-};
 
 
 var $nav = document.querySelector('nav');
@@ -422,12 +379,6 @@ $nav.addEventListener('click', function(){
       $nav.className = '';
     }
     })
-
-var originalConsoleLog = console.log;
-
-console.log = function(msg){
-  log(msg);
-}
 
 
 </script>

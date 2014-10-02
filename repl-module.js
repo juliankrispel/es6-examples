@@ -75,7 +75,7 @@ function debounced(func, tmin, tmax) {
     id = setTimeout(wrappedFunc, t);
   }
   // id is nonzero only when a debounced function is pending.
-  debouncedFunc.delay = () => { id && debouncedFunc(); }
+  debouncedFunc.delay = function(){ return id && debouncedFunc(); };
   return debouncedFunc;
 }
 
@@ -113,7 +113,7 @@ function updateSourceMapVisualization(url) {
     line: codeMirrorPosition.line + 1,
     column: codeMirrorPosition.ch,
     source: currentSource
-  }
+  };
 
   var originalRange = originalMap.rangeFrom(originalPosition);
   var generatedRange =
@@ -126,9 +126,10 @@ function updateSourceMapVisualization(url) {
   var generatedEndCM = {
     line: generatedRange[1].line - 1,
     ch: generatedRange[1].column
-  }
-  if (generatedMarker)
+  };
+  if (generatedMarker){
     generatedMarker.clear();
+  }
 
   generatedMarker =
       output.markText(generatedBeginCM, generatedEndCM, markingOptions);
@@ -151,8 +152,75 @@ function updateLocation(contents) {
   }
 }
 
+var compileI = 0;
+var setupLog = function(i){
+  var _$log = document.querySelector('.log');
+  _$log.innerHTML = '';
+  var $log = document.createElement('div');
+  _$log.appendChild($log);
+
+  window.setHTML = function(html){
+    $log.innerHTML = html; 
+  };
+  window.append = function($el){
+    console.log($el);
+    if(typeof $el === 'string'){
+      $log.innerHTML+= $el;
+    }else{
+      $log.appendChild($el);
+    }
+  };
+
+  var eventCallbacks = {
+    keyup: function(){}
+  };
+
+  var onKeyUp = function(keys, callback){
+    eventCallbacks.keyup = function(e){
+      console.log('keys', keys);
+        keys = keys;
+        var key = String.fromCharCode(e.keyCode).toLowerCase();
+        if(keys === undefined || keys === null){
+          callback();
+          return ;
+        }
+        if(!_.isArray(keys)){
+          keys = [keys];
+        }
+        for(var i = 0; i < keys.length; i++){
+          if(keys[i] === key){
+            callback(key);
+            break;
+          }
+        }
+    };
+  };
+  console.log = function(msg){
+    log(msg);
+  };
+
+  window.log = function(){
+    var args = _.map(Array.prototype.slice.call(arguments, 0),
+        function(arg){ return JSON.stringify(arg); });
+    $log.innerHTML+= '> ' + args.join(', ') + '<br/>';
+  };
+};
+
+var timeout = window.setTimeout;
+var timeoutIds = [];
+window.setTimeout = function(cb, time){
+  timeoutIds.push(timeout(cb, time))
+}
+
+var clearTimeouts = function(){
+  timeoutIds.forEach(i => clearTimeout(i));
+  timeoutIds = [];
+}
+
 function compile() {
-  $log.innerHTML = '';
+  setupLog();
+  clearTimeouts();
+  setHTML('');
   hasError = false;
   output.setValue('');
 
@@ -209,7 +277,7 @@ var loadScriptFromHash = function(){
   };
   request.open('GET', url, true);
   request.send();
-}
+};
 
 window.addEventListener('hashchange', function(){
  loadScriptFromHash();
