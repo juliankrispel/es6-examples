@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {ErrorReporter} from 'traceur@0.0/src/util/ErrorReporter';
+import {ErrorReporter} from 'src/util/ErrorReporter';
 import {
   GeneratedSourceMapMapping,
   OriginalSourceMapMapping
 } from './SourceMapMapping';
 import {SourceMapConsumer}
-    from 'traceur@0.0/src/outputgeneration/SourceMapIntegration';
+    from 'src/outputgeneration/SourceMapIntegration';
 import {transcode, renderSourceMap} from './transcode';
-import {options as traceurOptions} from 'traceur@0.0/src/Options';
+import {options as traceurOptions} from 'src/Options';
 import {setOptionsFromSource} from './replOptions';
 
 var hasError = false;
