@@ -2,7 +2,7 @@
  * default arguments *
  ********************/
 
-var createSquare = function(size = 100, color = '#000'){
+var createSquare = function(size = 100, color = 'yellow'){
   var square = document.createElement('div');
   square.style.width = size + 'px';
   square.style.height = size + 'px';

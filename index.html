@@ -128,7 +128,7 @@ body{
 }
 
 .log{
-  padding-top: 150px;
+  padding: 2em;
   font-family:  'Droid Sans Mono', sans-serif;
 }
 
@@ -337,8 +337,8 @@ font-style: normal;
   <ul>
     <li><a href="#examples/ecma.js">Introduction</a></li>
     <li><a href="#examples/arrows.js">Arrows</a></li>
-    <li><a href="#examples/arrows-2.js">Arrows 2</a></li>
-    <li><a href="#examples/arrows-3.js">Arrows 3</a></li>
+    <li><a href="#examples/arrows-2.js">Before Arrows</a></li>
+    <li><a href="#examples/arrows-3.js">Arrows bind to parent scope</a></li>
     <li><a href="#examples/destructuring.js">Destructuring Assignments</a></li>
     <li><a href="#examples/default-params.js">Default function arguments</a></li>
     <li><a href="#examples/rest.js">Rest and Spread</a></li>
@@ -422,6 +422,12 @@ $nav.addEventListener('click', function(){
       $nav.className = '';
     }
     })
+
+var originalConsoleLog = console.log;
+
+console.log = function(msg){
+  log(msg);
+}
 
 
 </script>

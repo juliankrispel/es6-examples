@@ -1,3 +1,7 @@
+/* ****************************
+ * Async Functions (ES7)
+ * ***************************/
+
 var delay = function(time){
   return new Promise(function(fulfill){
     setTimeout(fulfill, time);
