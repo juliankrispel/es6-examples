@@ -220,5 +220,6 @@ if (location.hash) {
  loadScriptFromHash();
 
 } else {
+  window.location.hash = '#examples/index.js';
   compile();
 }
